@@ -2,3 +2,5 @@
 api/node_modules/
 
 unityapp/coreapp/Library/
+unityapp/coreapp/Packages/
+unityapp/coreapp/Temp/
