@@ -8,6 +8,7 @@ public class validator : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject loginbtn  = null;
+    public GameObject emailnotify = null;
 
     public void validation()
     {
@@ -26,12 +27,12 @@ public class validator : MonoBehaviour
     {
         try {
             var addr = new System.Net.Mail.MailAddress(email);
-            Debug.Log("email valid");
+            emailnotify.GetComponent<Text>().text = "Email valid";
             return addr.Address == email;
 
         }
         catch(Exception e) {
-            Debug.Log("email not valid");
+            emailnotify.GetComponent<Text>().text = "Email not valid";
             return false;
         }
         

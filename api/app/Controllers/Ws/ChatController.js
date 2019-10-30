@@ -1,11 +1,14 @@
 'use strict'
 
-class UserUpdateController {
+class ChatController {
   constructor ({ socket, request }) {
     this.socket = socket
     this.request = request
   }
-  on
+  onMessage(message){
+
+  }
+
 }
 
-module.exports = UserUpdateController
+module.exports = ChatController

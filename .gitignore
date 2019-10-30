@@ -4,3 +4,5 @@ api/node_modules/
 unityapp/coreapp/Library/
 unityapp/coreapp/Packages/
 unityapp/coreapp/Temp/
+unityapp/coreapp/package.config
+unityapp/coreapp/.idea/
