@@ -22,3 +22,4 @@ Route.get('/', () => {
 
 Route.post('/user/login', ('UserController.login')).middleware('SpoofAccept','guest')
 Route.post('/user/register', ('UserController.register')).middleware('SpoofAccept','guest')
+Route.get('/user/', ('UserController.getSelf')).middleware('SpoofAccept','auth')

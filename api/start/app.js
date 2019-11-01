@@ -19,6 +19,7 @@ const providers = [
   '@adonisjs/validator/providers/ValidatorProvider',
   '@adonisjs/websocket/providers/WsProvider'
 
+
 ]
 
 /*

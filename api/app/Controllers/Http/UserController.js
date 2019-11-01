@@ -2,9 +2,10 @@
 
 const { validate } = use('Validator');
 
-const User = use("App/Models/User");
-
+const
+  User = use("App/Models/User");
 class UserController {
+
   async register({ request, response }) {
 
     const rules = {
@@ -72,7 +73,15 @@ class UserController {
       message: "success",
       data: jwt
     });
-  }
-}
 
+  }
+  async getSelf({ request, auth, response }) {
+
+    return response.status(200).json({
+      status: "success",
+      data: await auth.getUser()
+    });
+  }
+
+}
 module.exports = UserController;
