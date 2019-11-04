@@ -10,11 +10,13 @@ const userTopicSubscriptions = ()=> {
 
 export default async () => {
   return new Promise((resolve, reject) => {
+    let split =  localStorage.getItem('auth._token.local').split(" ")
+    let token = split[1]
     Vue.ws.disconnect()
     Vue.ws.connect(
       {
         wsDomain: "ws://localhost:3333",
-        jwtToken: localStorage.getItem('auth._token.local')
+        jwtToken:token
       },
       {
         path: 'adonis-ws',

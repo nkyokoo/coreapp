@@ -18,6 +18,7 @@ const globalMiddleware = [
   'Adonis/Middleware/AuthInit',
 
 
+
 ]
 
 /*
