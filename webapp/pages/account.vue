@@ -19,8 +19,7 @@
             Account info
           </v-card-title>
           <v-card-text>
-            <p> firstname: {{loggedInUser.firstname}}</p>
-            <p> lastname: {{loggedInUser.lastname}}</p>
+            <p> username: {{loggedInUser.username}}</p>
             <p> email: {{loggedInUser.email}}</p>
           </v-card-text>
         </v-card>
