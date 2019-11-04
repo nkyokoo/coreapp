@@ -22,26 +22,37 @@
               <form>
                 <v-text-field
                   label="username"
-                  v-validate="'required|password'"
+                  v-model="username"
                   data-vv-name="username"
-                  required></v-text-field>
+                  required>
+                </v-text-field>
                 <v-text-field
                   v-model="email"
                   :rules="emailRules"
-                  v-validate="'required|email'"
                   label="E-mail"
                   data-vv-name="email"
                   required
                 ></v-text-field>
                 <v-text-field
-                  v-validate="'required|password'"
+                  v-model="password"
                   label="New password"
                   :type="'password'"
                   id="new-password"
+                  data-vv-name="password"
                   required
                 ></v-text-field>
-
-                <v-btn class="mr-4"  color="blue" @click="register">create account</v-btn>
+                <v-text-field
+                  v-model="repeatpassword"
+                  label="Repeat password"
+                  :type="'password'"
+                  id="repeat-password"
+                  data-vv-name="repeat-password"
+                  required
+                ></v-text-field>
+                <div class="matches" v-if='notSamePasswords'>
+                  <p>Passwords don't match.</p>
+                </div>
+                <v-btn class="mr-4" :disabled="notSamePasswords && !isFilled" color="blue" @click="register">create account</v-btn>
               </form>
             </v-card-text>
           </v-card>
@@ -63,8 +74,10 @@
                 'end',
             ],
             valid: true,
+            username:"",
             email: '',
             password: '',
+            repeatpassword:'',
             error: null,
             emailRules: [
                 v => !!v || 'E-mail is required',
@@ -73,9 +86,29 @@
         }),
 
         methods: {
-            register(){
+           async register(){
+
+               try {
+                   await this.$axios.post('/user/register', {
+                       username: this.username,
+                       email: this.email,
+                       password: this.password
+                   })
+               } catch (e) {
+                   console.log(e.name)
+               }
+
+            },
+            isFilled(){
+                return this.username !== "" && this.email !== "" && this.password !== "";
 
             }
+        },
+        computed:{
+            notSamePasswords () {
+                    return (this.password !== this.repeatpassword)
+            },
+
         }
 
 

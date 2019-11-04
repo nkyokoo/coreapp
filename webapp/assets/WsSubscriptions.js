@@ -2,9 +2,9 @@ import Vue from "vue";
 
 const userTopicSubscriptions = ()=> {
 
-    let subscription = Vue.ws.socket.getSubscription(`chat:1`);
+    let subscription = Vue.ws.socket.getSubscription(`chat:default`);
     if (!subscription) {
-      subscription = Vue.ws.subscribe(`chat:1`);
+      subscription = Vue.ws.subscribe(`chat:default`);
     }
 };
 

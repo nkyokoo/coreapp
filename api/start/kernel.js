@@ -17,6 +17,7 @@ const globalMiddleware = [
   'App/Middleware/ConvertEmptyStringsToNull',
   'Adonis/Middleware/AuthInit',
 
+
 ]
 
 /*
@@ -40,6 +41,7 @@ const namedMiddleware = {
   auth: 'Adonis/Middleware/Auth',
   guest: 'Adonis/Middleware/AllowGuestOnly',
   SpoofAccept: "App/Middleware/SpoofAccept"
+
 
 }
 
