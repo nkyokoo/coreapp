@@ -7,10 +7,6 @@
     >
 
       <v-col>
-        <v-spacer></v-spacer>
-
-      </v-col>
-      <v-col>
         <v-card>
           <v-card-title class="headline">
             Chat
@@ -46,7 +42,24 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-spacer></v-spacer>
+        <v-card
+          style="width: 20rem; margin-left: 1rem; margin-bottom: 0.5rem"
+        >
+         <v-card-title>users</v-card-title>
+        </v-card>
+        <v-expansion-panels
+          style="width: 20rem; margin-left: 1rem"
+        >
+          <v-expansion-panel
+            v-for="(Item,i) in this.users"
+            :key="i"
+          >
+            <v-expansion-panel-header>{{Item.username}}</v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-btn v-if="loggedInUser.group_id === 2 && Item.id !== loggedInUser.id"  color="red" :click="kickuser(Item.socketid)">kick</v-btn>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-col>
     </v-row>
 
@@ -64,7 +77,8 @@
             return {
                 loading: true,
                 chatbox:"",
-                message:""
+                message:"",
+                users: []
 
             }
 
@@ -74,7 +88,6 @@
             this.$ws.$on('USER_LEFT',this.leftEvent)
             this.$ws.$on('message',this.messageReceived)
 
-
         },
         methods:{
             async sendmessage() {
@@ -82,17 +95,26 @@
 
             },
             joinEvent(data){
-                console.log(data);
+                this.users.push(data.user)
                 document.getElementById('chatbox').value += data.message+"\n"
             },
             leftEvent(data){
-                console.log(data);
+                console.log(data)
+                let jsonusers = JSON.parse(JSON.stringify(this.users))
+                let index = jsonusers.findIndex(function(item, i){
+                    return item.id === data.user.id
+                });
+                jsonusers.splice(index, 1);
+                this.users = jsonusers
                 document.getElementById('chatbox').value += data.message+"\n"
             },
             messageReceived(data) {
                 document.getElementById('chatbox').value += "<"+data.sender.username+">: " + data.message+"\n"
                 console.log(data)
-            }
+            },
+            kickuser(socketid){
+
+            },
         },
         async created() {
             await WsSubscriptions()
@@ -101,8 +123,6 @@
         computed:{
             ...mapGetters(['isAuthenticated', 'loggedInUser']),
         }
-
-
     }
 
 </script>

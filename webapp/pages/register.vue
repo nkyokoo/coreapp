@@ -52,7 +52,7 @@
                 <div class="matches" v-if='notSamePasswords'>
                   <p>Passwords don't match.</p>
                 </div>
-                <v-btn class="mr-4" :disabled="notSamePasswords && !isFilled" color="blue" @click="register">create account</v-btn>
+                <v-btn class="mr-4" :disabled="notSamePasswords" color="blue" @click="register">create account</v-btn>
               </form>
             </v-card-text>
           </v-card>
@@ -67,7 +67,9 @@
 
 <script>
     export default {
+        middleware: 'guest',
         data: () => ({
+
             alignments: [
                 'start',
                 'center',
@@ -88,26 +90,31 @@
         methods: {
            async register(){
 
-               try {
-                   await this.$axios.post('/user/register', {
-                       username: this.username,
-                       email: this.email,
-                       password: this.password
-                   })
-               } catch (e) {
-                   console.log(e.name)
+               if (this.isFilled) {
+                   try {
+                       await this.$axios.post('/user/register', {
+                           username: this.username,
+                           email: this.email,
+                           password: this.password
+                       })
+                       this.$router.push({path:'login'})
+
+                   } catch (e) {
+                       console.log(e)
+                   }
                }
 
             },
-            isFilled(){
-                return this.username !== "" && this.email !== "" && this.password !== "";
 
-            }
         },
         computed:{
             notSamePasswords () {
                     return (this.password !== this.repeatpassword)
             },
+            isFilled(){
+                return this.username !== "" && this.email !== "" && this.password !== "";
+
+            }
 
         }
 

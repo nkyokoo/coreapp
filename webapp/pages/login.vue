@@ -1,4 +1,5 @@
 <template>
+  <div>
   <v-card>
     <v-card-title>login</v-card-title>
    <v-card-text>
@@ -33,6 +34,10 @@
       <router-link to="/register">Don't have a account? register here!</router-link>
     </v-card-actions>
   </v-card>
+    <v-alert style="margin-top: 1rem" v-if="error" type="error">
+        {{this.error}}
+    </v-alert>
+  </div>
   </template>
 
 <script>
@@ -58,11 +63,11 @@
                             email: this.email,
                             password: this.password
                         }
-                    })
+                    }).then(() => this.$router.push('/login'))
 
-                    this.$router.push('/')
+
                 } catch (e) {
-                    console.log(e.name)
+                   this.error = e;
                 }
             }
         },

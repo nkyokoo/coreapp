@@ -31,6 +31,7 @@ class UserController {
     user.username = body.username;
     user.email = body.email;
     user.password = body.password;
+    user.group_id = "1";
 
     await user.save();
 

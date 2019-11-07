@@ -2,9 +2,11 @@ import Vue from "vue";
 
 const userTopicSubscriptions = ()=> {
 
-    let subscription = Vue.ws.socket.getSubscription(`chat:default`);
-    if (!subscription) {
-      subscription = Vue.ws.subscribe(`chat:default`);
+    let chatsubscription = Vue.ws.socket.getSubscription(`chat:default`);
+
+  if (!chatsubscription) {
+      chatsubscription = Vue.ws.subscribe(`chat:default`);
+
     }
 };
 
@@ -15,7 +17,7 @@ export default async () => {
     Vue.ws.disconnect()
     Vue.ws.connect(
       {
-        wsDomain: "ws://localhost:3333",
+        wsDomain: "ws://10.130.54.151:3333",
         jwtToken:token
       },
       {
