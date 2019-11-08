@@ -11,11 +11,6 @@ class ChatController {
     user.socketid = this.socket.id
     Ws.getChannel('chat:*').topic('chat:default').broadcast("USER_JOIN",{message: user.username+' joined the chat', user:user})
 
-    this.socket.on('KICK_USER', function (data) {
-
-        this.socket
-
-    })
 
   }
      onClose(){
@@ -27,8 +22,23 @@ class ChatController {
 
      onMessage(message){
        this.socket.broadcastToAll("message",{message:message.message,sender:message.sender})
+       if(message.message.startsWith('/')){
+         let msg = message.message.split('/')
+         switch (msg[1]) {
+           case 'ping':
+              this.socket.broadcastToAll("message",{message:'a',sender:{username:'server'}})
+              break;
+           case 'a':
+             this.socket.broadcastToAll("message",{message:'aaaa',sender:{username:'server'}})
+             break;
+           default:
+             this.socket.broadcastToAll("message",{message:`no ${msg[1]} doesn\'t exist`,sender:{username:'server'}})
+             break;
+         }
 
-    }
+       }
+
+     }
     async onError(e){
        console.log(e)
     }
