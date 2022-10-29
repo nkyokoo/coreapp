@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@adonisjs/websocket-client": "^1.0.9",
-    "@hapi/hapi": "^18.3.1",
+    "@hapi/hapi": "^20.0.0",
     "@nuxtjs/auth": "latest",
     "@nuxtjs/axios": "^5.6.0",
     "@nuxtjs/hapi": "^2.2.1",
